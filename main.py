@@ -21,7 +21,10 @@ def change_status(token, message, status):
 
     singapore = requests.get("https://discord.com/api/v10/users/@me/settings", headers=header).json()
 
-    singapore2 = singapore.get("custom_status", {})
+    singapore2 = singapore.get("custom_status")
+    if not isinstance(singapore2, dict):
+        singapore2 = {}
+
     singapore2["text"] = message
 
     activities = singapore.get("activities", [])
